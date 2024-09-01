@@ -92,6 +92,23 @@ class TextEditorApp(QWidget):
 
         main_layout.addLayout(button_layout)
 
+        # Add two new buttons to the screen
+        code_button_layout = QHBoxLayout()
+
+        # Button to print <img> HTML tag
+        img_button = QPushButton('create an image')
+        img_button.setFont(QFont('Arial', 12))
+        img_button.clicked.connect(self.print_img_tag)
+        code_button_layout.addWidget(img_button)
+
+        # Button to print <option> HTML tag
+        option_button = QPushButton('create a chapter')
+        option_button.setFont(QFont('Arial', 12))
+        option_button.clicked.connect(self.print_option_tag)
+        code_button_layout.addWidget(option_button)
+
+        main_layout.addLayout(code_button_layout)
+
         # Set the main layout for the window
         self.setLayout(main_layout)
 
@@ -148,6 +165,15 @@ class TextEditorApp(QWidget):
                 # Select the found text and apply the format
                 cursor.mergeCharFormat(format)
                 self.text_area.setTextCursor(cursor)
+
+    def print_img_tag(self):
+        img_tag = '&lt;img class ="ts-main-image" data-index="" src="..." data-server="server1"&gt;'
+        self.text_area.append(img_tag)
+
+    def print_option_tag(self):
+        # Print the <option> HTML tag to the text area
+        option_tag = '<option data-id="" value="GO:">Chapter</option>'
+        self.text_area.append(option_tag)  # Append at the end of the text area
 
 
 if __name__ == '__main__':
